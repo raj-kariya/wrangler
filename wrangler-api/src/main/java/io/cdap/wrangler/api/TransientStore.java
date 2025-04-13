@@ -33,7 +33,7 @@ public interface TransientStore extends Serializable {
   /**
    * A value associated with the variable in the transient store.
    *
-   * @param name of the variable to be retrieved.
+   * @param name of the variable to be retrieved.p
    * @param <T> type of the value to be returned.
    * @return instance of object of type T.
    */

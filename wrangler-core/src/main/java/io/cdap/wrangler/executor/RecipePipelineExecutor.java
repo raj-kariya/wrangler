@@ -122,6 +122,7 @@ public final class RecipePipelineExecutor implements RecipePipeline<Row, Structu
 
     try {
       collector.reset();
+      context.getTransientStore().set(TransientVariableScope.GLOBAL, "total_records", rows.size());
       while (i < rows.size()) {
         messages.clear();
         // Resets the scope of local variable.
