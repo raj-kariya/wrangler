@@ -56,7 +56,8 @@ public class GrammarBasedParserTest {
       "parse-as-csv body , true",
       "text-reverse :body;",
       "test prop: { a='b', b=1.0, c=true};",
-      "#pragma load-directives test-change,text-exchange, test1,test2,test3,test4;"
+      "#pragma load-directives test-change,text-exchange, test1,test2,test3,test4;",
+      "aggregate-stats :throughput :interval sum_size_mb avg_size_mb p99_size_mb"
     };
 
     Compiler compiler = new RecipeCompiler();

@@ -22,7 +22,6 @@ import io.cdap.wrangler.api.CompileStatus;
 import io.cdap.wrangler.api.Compiler;
 import org.junit.Assert;
 import org.junit.Test;
-
 import java.util.Set;
 
 /**
@@ -62,6 +61,21 @@ public class RecipeCompilerTest {
     CompileStatus status = TestingRig.compile(recipe);
     Assert.assertEquals(true, status.isSuccess());
   }
+
+  @Test
+  public void testByteSizeAggregationEdgeCases() throws Exception {
+    String[] recipe = new String[] {
+      // Test with bytes unit
+      "aggregate-stats :small_size :time total_size_b total_time_sec",
+      // Test with terabytes unit
+      "aggregate-stats :large_size :duration total_size_tb total_time_sec",
+      // Test multiple stats with same unit
+      "aggregate-stats :throughput :interval sum_size_mb avg_size_mb p99_size_mb"
+    };
+    CompileStatus status = TestingRig.compile(recipe);
+    Assert.assertTrue(status.isSuccess());
+  }
+
 
   @Test
   public void testSingleMacroLikeWranglerPlugin() throws Exception {
