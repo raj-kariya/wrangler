@@ -64,6 +64,8 @@ directive
     | stringList
     | numberRanges
     | properties
+    | byteSizeArg
+    | timeDurationArg
   )*?
   ;
 
@@ -140,7 +142,7 @@ numberRange
  ;
 
 value
- : String | Number | Column | Bool
+ : String | Number | Column | Bool | BYTE_SIZE | TIME_DURATION
  ;
 
 ecommand
@@ -195,6 +197,13 @@ identifierList
  : Identifier (',' Identifier)*
  ;
 
+ byteSizeArg
+ : BYTE_SIZE
+ ;
+
+timeDurationArg
+ : TIME_DURATION
+ ;
 
 /*
  * Following are the Lexer Rules used for tokenizing the recipe.
@@ -247,6 +256,11 @@ BackSlash: '\\';
 Dollar   : '$';
 Tilde    : '~';
 
+BYTE_SIZE : (Number) BYTE_UNIT;
+fragment BYTE_UNIT : 'B' | 'KB' | 'MB' | 'GB' | 'TB';
+
+TIME_DURATION : (Number) TIME_UNIT;
+fragment TIME_UNIT : 'ms' | 's' | 'min' | 'h' | 'd';
 
 Bool
  : 'true'
