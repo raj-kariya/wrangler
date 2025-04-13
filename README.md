@@ -31,6 +31,11 @@ More [here](wrangler-docs/upcoming-features.md) on upcoming features.
   * A new capability that allows CDAP Administrators to **restrict the directives** that are accessible to their users.
 More information on configuring can be found [here](wrangler-docs/exclusion-and-aliasing.md)
 
+ * **ByteSize and TimeDuration Support**: New parsers for handling byte sizes (B, KB, MB, GB, TB) and time durations (ms, s, min, h, d) in directives. Learn more [here](wrangler-docs/directives/aggregate-stats.md).
+    * Use with the new aggregate-stats directive for processing memory and time metrics
+    * Support for scientific notation and decimal values
+    * Configurable output units for aggregation results
+
 ## Demo Videos and Recipes
 
 Videos and Screencasts are best way to learn, so we have compiled simple, short screencasts that shows some of the features of Data Prep. Additional videos can be found [here](https://www.youtube.com/playlist?list=PLhmsf-NvXKJn-neqefOrcl4n7zU4TWmIr)
@@ -107,6 +112,7 @@ These directives are currently available:
 | [URL Decode](wrangler-docs/directives/url-decode.md)                            | Decodes from the `application/x-www-form-urlencoded` MIME format |
 | [URL Encode](wrangler-docs/directives/url-encode.md)                            | Encodes to the `application/x-www-form-urlencoded` MIME format   |
 | [Trim](wrangler-docs/directives/trim.md)                                        | Functions for trimming white spaces around string data           |
+| [Aggregate Stats](wrangler-docs/directives/aggregate-stats.md)                  | Aggregates byte sizes and time durations across records            | 
 | **Encoders and Decoders**                                              |                                                                  |
 | [Decode](wrangler-docs/directives/decode.md)                                    | Decodes a column value as one of `base32`, `base64`, or `hex`    |
 | [Encode](wrangler-docs/directives/encode.md)                                    | Encodes a column value as one of `base32`, `base64`, or `hex`    |
