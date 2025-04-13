@@ -22,6 +22,7 @@ import io.cdap.wrangler.api.SourceInfo;
 import io.cdap.wrangler.api.Triplet;
 import io.cdap.wrangler.api.parser.Bool;
 import io.cdap.wrangler.api.parser.BoolList;
+import io.cdap.wrangler.api.parser.ByteSize;
 import io.cdap.wrangler.api.parser.ColumnName;
 import io.cdap.wrangler.api.parser.ColumnNameList;
 import io.cdap.wrangler.api.parser.DirectiveName;
@@ -33,6 +34,7 @@ import io.cdap.wrangler.api.parser.Properties;
 import io.cdap.wrangler.api.parser.Ranges;
 import io.cdap.wrangler.api.parser.Text;
 import io.cdap.wrangler.api.parser.TextList;
+import io.cdap.wrangler.api.parser.TimeDuration;
 import io.cdap.wrangler.api.parser.Token;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.misc.Interval;
@@ -316,6 +318,50 @@ public final class RecipeVisitor extends DirectivesBaseVisitor<RecipeSymbol.Buil
     builder.addToken(new TextList(strs));
     return builder;
   }
+
+  /**
+   * This visitor method extracts byte size values with units. It creates a token
+   * type ByteSize to be added to TokenGroup.
+   */
+  @Override
+  public RecipeSymbol.Builder visitByteSizeArg(DirectivesParser.ByteSizeArgContext ctx) {
+    String byteSizeStr = ctx.BYTE_SIZE().getText();
+    builder.addToken(new ByteSize(byteSizeStr));
+    return builder;
+  }
+
+  /**
+   * This visitor method extracts time duration values with units. It creates a token
+   * type TimeDuration to be added to TokenGroup.
+   */
+  @Override
+  public RecipeSymbol.Builder visitTimeDurationArg(DirectivesParser.TimeDurationArgContext ctx) {
+    String timeDurationStr = ctx.TIME_DURATION().getText();
+    builder.addToken(new TimeDuration(timeDurationStr));
+    return builder;
+  }
+
+  // /**
+  //  * This visitor method handles value nodes that can now include byte sizes and time durations
+  //  */
+  // @Override
+  // public RecipeSymbol.Builder visitValue(DirectivesParser.ValueContext ctx) {
+  //   if (ctx.BYTE_SIZE() != null) {
+  //     builder.addToken(new ByteSize(ctx.BYTE_SIZE().getText()));
+  //   } else if (ctx.TIME_DURATION() != null) {
+  //     builder.addToken(new TimeDuration(ctx.TIME_DURATION().getText()));
+  //   } else if (ctx.String() != null) {
+  //     String text = ctx.String().getText();
+  //     builder.addToken(new Text(text.substring(1, text.length() - 1)));
+  //   } else if (ctx.Number() != null) {
+  //     builder.addToken(new Numeric(new LazyNumber(ctx.Number().getText())));
+  //   } else if (ctx.Column() != null) {
+  //     builder.addToken(new ColumnName(ctx.Column().getText().substring(1)));
+  //   } else if (ctx.Bool() != null) {
+  //     builder.addToken(new Bool(Boolean.valueOf(ctx.Bool().getText())));
+  //   }
+  //   return builder;
+  // }
 
   private SourceInfo getOriginalSource(ParserRuleContext ctx) {
     int a = ctx.getStart().getStartIndex();
